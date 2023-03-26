@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+    <title>Document</title>
+    <link rel="stylesheet" href="home.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="mol-12 col-lg-5 col-md-12 mb-4">
+                <div class="price_range">
+                    <div class="number">
+                        <input type="number" id="minprice" value="" p>以上的價位</p>
+                        <input type="number" id="maxprice" value="" p>以下的價位</p>
+                    </div>
+                    <div class="button">
+                        <button id="searchprice">搜尋</button>
+                    </div>
+                </div>
+                <div class="producttype">
+                    <input type="checkbox" id="3C" name="type" value="3C" class="checkbox">
+                    <label for="coding">3C</label>
+                    <input type="checkbox" id="food" name="type"class="checkbox">
+                    <label for="coding">食品</label>
+                    <input type="checkbox" id="drink" name="type"class="checkbox">
+                    <label for="coding">飲料</label>
+                    <div class="button">
+                        <button id="check">搜尋</button>
+                    </div>
+                </div>
+                <div class="searchAll">
+                    <div class="title">
+                        <p>輸入商品名稱 </p>
+                    </div>
+                    <div class="item">
+                        <input type="text" id="text" value="">
+                        <button id="btnsearch">尋找資料</button>
+                    </div>
+                </div>
+                <div class="showAll">
+                    <button id="btnshow">查看所有資料</button>
+                </div>
+            </div>
+            <div class="mol-12 col-lg-5 col-md-12 mb-4">
+                <div class="table table-primary table-striped-columns">
+                    <table id="tablelist">
+
+                    </table>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N"
+        crossorigin="anonymous"></script>
+    <script type="module">
+
+        import { product } from "../Modules/product.js"
+        let tablelist = document.getElementById("tablelist");
+        //顯示所有商品
+        let btnshow = document.getElementById("btnshow")
+        btnshow.addEventListener("click", shows)
+        function shows() {
+            tablelist.innerHTML = "";
+            const td1 = document.createElement("td");
+            const td2 = document.createElement("td");
+            const td3 = document.createElement("td");
+            const td4 = document.createElement("td");
+            const td5 = document.createElement("td");
+            const tr = document.createElement("tr");
+            td1.innerHTML = "商品ID";
+            td2.innerHTML = "商品名稱";
+            td3.innerHTML = "商品數量";
+            td4.innerHTML = "商品價格";
+            td5.innerHTML = "商品種類";
+            tr.appendChild(td1)
+            tr.appendChild(td2)
+            tr.appendChild(td3)
+            tr.appendChild(td4)
+            tr.appendChild(td5)
+            tablelist.appendChild(tr);
+            product.forEach((item) => {
+                const td1 = document.createElement("td");
+                const td2 = document.createElement("td");
+                const td3 = document.createElement("td");
+                const td4 = document.createElement("td");
+                const td5 = document.createElement("td");
+                const tr = document.createElement("tr");
+                td1.innerHTML = `${item.ProductNumber}`;
+                td2.innerHTML = `${item.ProductName}`;
+                td3.innerHTML = `${item.Amount}`;
+                td4.innerHTML = `${item.Price}`;
+                td5.innerHTML = `${item.ProductType}`;
+                tr.appendChild(td1)
+                tr.appendChild(td2)
+                tr.appendChild(td3)
+                tr.appendChild(td4)
+                tr.appendChild(td5)
+                tablelist.appendChild(tr);
+            });
+        }
+        //透過checked來篩選商品
+        let checkeds3C = document.getElementById("3C")
+        let checkedsfood = document.getElementById("food")
+        let checkedsdrink = document.getElementById("drink")
+        let btncheck = document.getElementById("check")
+        btncheck.addEventListener("click", function () {
+            tablelist.innerHTML = "";
+            const td1 = document.createElement("td");
+            const td2 = document.createElement("td");
+            const td3 = document.createElement("td");
+            const td4 = document.createElement("td");
+            const td5 = document.createElement("td");
+            const tr = document.createElement("tr")
+            td1.innerHTML = "商品ID";
+            td2.innerHTML = "商品名稱";
+            td3.innerHTML = "商品數量";
+            td4.innerHTML = "商品價格";
+            td5.innerHTML = "商品種類";
+            tr.appendChild(td1)
+            tr.appendChild(td2)
+            tr.appendChild(td3)
+            tr.appendChild(td4)
+            tr.appendChild(td5)
+            tablelist.appendChild(tr);
+            if (checkeds3C.checked) {
+                var type_3C = product.filter(function (item, index) {
+                    return item.ProductType == "3C";
+                })
+                type_3C.forEach((item) => {
+                    const td1 = document.createElement("td");
+                    const td2 = document.createElement("td");
+                    const td3 = document.createElement("td");
+                    const td4 = document.createElement("td");
+                    const td5 = document.createElement("td");
+                    const tr = document.createElement("tr")
+                    td1.innerHTML = `${item.ProductNumber}`;
+                    td2.innerHTML = `${item.ProductName}`;
+                    td3.innerHTML = `${item.Amount}`;
+                    td4.innerHTML = `${item.Price}`;
+                    td5.innerHTML = `${item.ProductType}`;
+                    tr.appendChild(td1)
+                    tr.appendChild(td2)
+                    tr.appendChild(td3)
+                    tr.appendChild(td4)
+                    tr.appendChild(td5)
+                    tablelist.appendChild(tr);
+                });
+            }
+            if (checkedsfood.checked) {
+                var type_food = product.filter(function (item, index) {
+                    return item.ProductType == "食品";
+                })
+                type_food.forEach((item) => {
+                    const td1 = document.createElement("td");
+                    const td2 = document.createElement("td");
+                    const td3 = document.createElement("td");
+                    const td4 = document.createElement("td");
+                    const td5 = document.createElement("td");
+                    const tr = document.createElement("tr")
+                    td1.innerHTML = `${item.ProductNumber}`;
+                    td2.innerHTML = `${item.ProductName}`;
+                    td3.innerHTML = `${item.Amount}`;
+                    td4.innerHTML = `${item.Price}`;
+                    td5.innerHTML = `${item.ProductType}`;
+                    tr.appendChild(td1)
+                    tr.appendChild(td2)
+                    tr.appendChild(td3)
+                    tr.appendChild(td4)
+                    tr.appendChild(td5)
+                    tablelist.appendChild(tr);
+                });
+            }
+            if (checkedsdrink.checked) {
+                var type_drink = product.filter(function (item, index) {
+                    return item.ProductType == "飲料";
+                })
+                type_drink.forEach((item) => {
+                    const td1 = document.createElement("td");
+                    const td2 = document.createElement("td");
+                    const td3 = document.createElement("td");
+                    const td4 = document.createElement("td");
+                    const td5 = document.createElement("td");
+                    const tr = document.createElement("tr")
+                    td1.innerHTML = `${item.ProductNumber}`;
+                    td2.innerHTML = `${item.ProductName}`;
+                    td3.innerHTML = `${item.Amount}`;
+                    td4.innerHTML = `${item.Price}`;
+                    td5.innerHTML = `${item.ProductType}`;
+                    tr.appendChild(td1)
+                    tr.appendChild(td2)
+                    tr.appendChild(td3)
+                    tr.appendChild(td4)
+                    tr.appendChild(td5)
+                    tablelist.appendChild(tr);
+                });
+            }
+        });
+        //透過價格(number)屬性來篩選商品
+        let searchbtn = document.getElementById("searchprice")
+        searchbtn.addEventListener("click", function () {
+            tablelist.innerHTML = "";
+            const td1 = document.createElement("td");
+            const td2 = document.createElement("td");
+            const td3 = document.createElement("td");
+            const td4 = document.createElement("td");
+            const td5 = document.createElement("td");
+            const tr = document.createElement("tr")
+            td1.innerHTML = "商品ID";
+            td2.innerHTML = "商品名稱";
+            td3.innerHTML = "商品數量";
+            td4.innerHTML = "商品價格";
+            td5.innerHTML = "商品種類";
+            tr.appendChild(td1)
+            tr.appendChild(td2)
+            tr.appendChild(td3)
+            tr.appendChild(td4)
+            tr.appendChild(td5)
+            tablelist.appendChild(tr);
+            let min = document.getElementById("minprice").value;
+            let max = document.getElementById("maxprice").value;
+            if (max == 0 && min != 0) {
+                var minprice = product.filter(function (item, index) {
+                    return item.Price >= min;
+                })
+                minprice.forEach((item) => {
+                    const td1 = document.createElement("td");
+                    const td2 = document.createElement("td");
+                    const td3 = document.createElement("td");
+                    const td4 = document.createElement("td");
+                    const td5 = document.createElement("td");
+                    const tr = document.createElement("tr")
+                    td1.innerHTML = `${item.ProductNumber}`;
+                    td2.innerHTML = `${item.ProductName}`;
+                    td3.innerHTML = `${item.Amount}`;
+                    td4.innerHTML = `${item.Price}`;
+                    td5.innerHTML = `${item.ProductType}`;
+                    tr.appendChild(td1)
+                    tr.appendChild(td2)
+                    tr.appendChild(td3)
+                    tr.appendChild(td4)
+                    tr.appendChild(td5)
+                    tablelist.appendChild(tr);
+                });
+            }
+            if (min == 0 && max != 0) {
+                var maxprice = product.filter(function (item, index) {
+                    return item.Price <= max;
+                })
+                maxprice.forEach((item) => {
+                    const td1 = document.createElement("td");
+                    const td2 = document.createElement("td");
+                    const td3 = document.createElement("td");
+                    const td4 = document.createElement("td");
+                    const td5 = document.createElement("td");
+                    const tr = document.createElement("tr")
+                    td1.innerHTML = `${item.ProductNumber}`;
+                    td2.innerHTML = `${item.ProductName}`;
+                    td3.innerHTML = `${item.Amount}`;
+                    td4.innerHTML = `${item.Price}`;
+                    td5.innerHTML = `${item.ProductType}`;
+                    tr.appendChild(td1)
+                    tr.appendChild(td2)
+                    tr.appendChild(td3)
+                    tr.appendChild(td4)
+                    tr.appendChild(td5)
+                    tablelist.appendChild(tr);
+                });
+            }
+            if (min != 0 && max != 0) {
+                var minprice = product.filter(function (item, index) {
+                    return item.Price >= min;
+                })
+                var maxprice = minprice.filter(function (item, index) {
+                    return item.Price <= max;
+                })
+                maxprice.forEach((item) => {
+                    const td1 = document.createElement("td");
+                    const td2 = document.createElement("td");
+                    const td3 = document.createElement("td");
+                    const td4 = document.createElement("td");
+                    const td5 = document.createElement("td");
+                    const tr = document.createElement("tr")
+                    td1.innerHTML = `${item.ProductNumber}`;
+                    td2.innerHTML = `${item.ProductName}`;
+                    td3.innerHTML = `${item.Amount}`;
+                    td4.innerHTML = `${item.Price}`;
+                    td5.innerHTML = `${item.ProductType}`;
+                    tr.appendChild(td1)
+                    tr.appendChild(td2)
+                    tr.appendChild(td3)
+                    tr.appendChild(td4)
+                    tr.appendChild(td5)
+                    tablelist.appendChild(tr);
+                });
+            }
+        })
+        //透過名稱來搜尋商品
+        let btnsearch = document.getElementById("btnsearch");
+        btnsearch.addEventListener("click", function () {
+            tablelist.innerHTML = "";
+            const td1 = document.createElement("td");
+            const td2 = document.createElement("td");
+            const td3 = document.createElement("td");
+            const td4 = document.createElement("td");
+            const td5 = document.createElement("td");
+            const tr = document.createElement("tr")
+            td1.innerHTML = "商品ID";
+            td2.innerHTML = "商品名稱";
+            td3.innerHTML = "商品數量";
+            td4.innerHTML = "商品價格";
+            td5.innerHTML = "商品種類";
+            tr.appendChild(td1)
+            tr.appendChild(td2)
+            tr.appendChild(td3)
+            tr.appendChild(td4)
+            tr.appendChild(td5)
+            tablelist.appendChild(tr);
+            let producttexts = document.getElementById("text").value;
+            var producttext = product.filter(function (item, index) {
+                return item.ProductName == producttexts;
+            })
+            producttext.forEach((item) => {
+                const td1 = document.createElement("td");
+                const td2 = document.createElement("td");
+                const td3 = document.createElement("td");
+                const td4 = document.createElement("td");
+                const td5 = document.createElement("td");
+                const tr = document.createElement("tr")
+                td1.innerHTML = `${item.ProductNumber}`;
+                td2.innerHTML = `${item.ProductName}`;
+                td3.innerHTML = `${item.Amount}`;
+                td4.innerHTML = `${item.Price}`;
+                td5.innerHTML = `${item.ProductType}`;
+                tr.appendChild(td1)
+                tr.appendChild(td2)
+                tr.appendChild(td3)
+                tr.appendChild(td4)
+                tr.appendChild(td5)
+                tablelist.appendChild(tr);
+            });
+        })
+    </script>
+</body>
+
+</html>

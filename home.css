@@ -1,0 +1,58 @@
+.row{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+.price_range{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: antiquewhite;
+    border-bottom: solid white 5px;
+    padding: 15px;
+}
+.button{
+    margin: 20px;
+}
+.checkbox{
+    margin: 10px;
+}
+.price{
+
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    background-color: antiquewhite;
+    border-bottom: solid white 5px;
+}
+
+.producttype{
+    height: 100px;
+    background-color: antiquewhite;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: solid white 5px;
+}
+.searchAll{
+    height: 100px;
+    background-color: antiquewhite;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border-bottom: solid white 5px;
+}
+.showAll{
+    height: 100px;
+    background-color: antiquewhite;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.table{
+    display: flex;
+    justify-content: center;
+}
+
